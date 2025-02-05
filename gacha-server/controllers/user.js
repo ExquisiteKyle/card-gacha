@@ -5,24 +5,13 @@ const { handleError } = require("../utils/helper");
 
 const findUser = (email) => User.findOne({ where: { email } });
 
-const generateAuthToken = (id) =>
-  jwt.sign(
-    {
-      id,
-    },
-    process.env.SECRET,
-    { expiresIn: "1h" }
-  );
-
-const verifyLogin = (user) =>
+const verifyLogin = (res, user, passwordInput) =>
   bcrypt
-    .compare(password, user.password)
+    .compare(passwordInput, user.password)
     .then((matched) => {
       if (!matched) return handleError(res, 401, "Invalid credentials");
-      const authToken = generateAuthToken(user.id);
-      res.status(200).json({
+      return res.status(200).json({
         message: "Success",
-        token: authToken,
       });
     })
     .catch((err) => handleError(res, 500, err));
@@ -32,15 +21,15 @@ exports.login = (req, res, next) => {
   findUser(email)
     .then((user) => {
       if (!user) return handleError(res, 401, "Invalid credentials");
-      verifyLogin(user);
+      verifyLogin(res, user, password);
     })
     .catch((err) => handleError(res, 500, err));
 };
 
 exports.register = (req, res, next) => {
-  const { email, name, password } = req.body;
+  const { email, username, password } = req.body;
   findUser(email).then((user) => {
-    if (user.length > 0) {
+    if (user) {
       return handleError(
         res,
         401,
@@ -52,7 +41,7 @@ exports.register = (req, res, next) => {
       .then((hashedPassword) =>
         User.create({
           email,
-          name,
+          username,
           password: hashedPassword,
         })
       )
