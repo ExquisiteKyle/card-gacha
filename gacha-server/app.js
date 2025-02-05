@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const sequelize = require("./utils/database");
 
 const userRoutes = require("./routes/user");
+const cardRoutes = require("./routes/card");
 const Card = require("./models/card");
 
 // Initializing database.
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/user", userRoutes);
+app.use("/card", cardRoutes);
 
 app.listen(8080, () => {
   console.log("Server running!");

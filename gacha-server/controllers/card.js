@@ -1,4 +1,5 @@
 const Card = require("../models/card");
+const { handleError } = require("../utils/helper");
 
 exports.getAllCards = (req, res, next) => {
   Card.findAll()
@@ -8,7 +9,7 @@ exports.getAllCards = (req, res, next) => {
     .catch((err) => console.error(err));
 };
 
-exports.getCard = (res, res, next) => {
+exports.getCard = (req, res, next) => {
   const id = req.params.cardId;
   Card.findAll({ where: { id } })
     .then(([card]) => {
@@ -28,9 +29,11 @@ exports.addCard = (req, res, next) => {
     image_url,
   })
     .then((result) => {
-      res.status(200).send();
+      res.status(200).json({
+        message: "Success",
+      });
     })
-    .catch((err) => console.error(err));
+    .catch((err) => handleError(res, 500, err));
 };
 
 exports.updateCard = (req, res, next) => {

@@ -51,3 +51,7 @@ exports.register = (req, res, next) => {
       .catch((err) => handleError(res, 500, err));
   });
 };
+
+exports.logOut = (req, res, next) => {
+  req.session.destroy(() => res.status(200).send());
+};

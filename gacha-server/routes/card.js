@@ -7,6 +7,6 @@ const authCheck = require("../middleware/auth-check");
 
 router.get("/get-all-cards", authCheck, cardsController.getAllCards);
 router.get("/get-card", authCheck, cardsController.getCard);
-router.post("/add-card", authCheck, (req, res, next) => {});
+router.post("/add-card", authCheck, cardsController.addCard);
 
 module.exports = router;

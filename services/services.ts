@@ -2,6 +2,8 @@ import { Login, Register } from "@/types/types";
 
 const apiUrl = process.env.EXPO_PUBLIC_API_URL;
 
+// Authentications
+
 export const handleRegister = (content: Register) => {
   if (!apiUrl) return;
   return fetch(`${apiUrl}/user/register`, {
@@ -31,12 +33,16 @@ export const handleLogin = (content: Login) => {
     .catch((err) => console.error(err));
 };
 
-const handleFetchData = (endpoint: string, content: Object) =>
-  fetch(endpoint, {
+// Cards
+
+export const handleAddCard = (content: Object) =>
+  fetch(`${apiUrl}/card/add-card`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(content),
-  }).then((result) => {});
+  })
+    .then((result) => result)
+    .catch((err) => console.error(err));

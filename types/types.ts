@@ -16,3 +16,17 @@ export type RootStackParamList = {
 
 export type HomeProp = NativeStackScreenProps<RootStackParamList, "Home">;
 export type IndexProp = NativeStackScreenProps<RootStackParamList, "Index">;
+
+export enum PAGE {
+  HOME = "home",
+  ADMIN = "admin",
+}
+
+export type CardProps = {
+  name: string;
+  description: string;
+  rarity: number;
+  attack: number;
+  defense: number;
+  image_url: string;
+};

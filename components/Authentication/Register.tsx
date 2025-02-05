@@ -1,4 +1,5 @@
 import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { useState } from "react";
@@ -23,47 +24,51 @@ const Register = ({ navigation }: IndexProp) => {
     );
 
   return (
-    <ThemedView style={styles.centerBox}>
-      <ThemedView style={styles.inputRow}>
-        <ThemedText type="default">Email</ThemedText>
-        <TextInput
-          style={styles.input}
-          onChangeText={setEmail}
-          value={email}
-          placeholder="JohnSmith@gmail.com"
-        />
-      </ThemedView>
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <ThemedView style={styles.centerBox}>
+          <ThemedView style={styles.inputRow}>
+            <ThemedText type="default">Email</ThemedText>
+            <TextInput
+              style={styles.input}
+              onChangeText={setEmail}
+              value={email}
+              placeholder="JohnSmith@gmail.com"
+            />
+          </ThemedView>
 
-      <ThemedView style={styles.inputRow}>
-        <ThemedText type="default">Username</ThemedText>
-        <TextInput
-          style={styles.input}
-          onChangeText={setUsername}
-          value={username}
-          placeholder="John Smith"
-        />
-      </ThemedView>
+          <ThemedView style={styles.inputRow}>
+            <ThemedText type="default">Username</ThemedText>
+            <TextInput
+              style={styles.input}
+              onChangeText={setUsername}
+              value={username}
+              placeholder="John Smith"
+            />
+          </ThemedView>
 
-      <ThemedView style={styles.inputRow}>
-        <ThemedText type="default">Password</ThemedText>
-        <TextInput
-          style={styles.input}
-          onChangeText={setPassword}
-          value={password}
-          textContentType="password"
-          secureTextEntry={true}
-        />
-      </ThemedView>
+          <ThemedView style={styles.inputRow}>
+            <ThemedText type="default">Password</ThemedText>
+            <TextInput
+              style={styles.input}
+              onChangeText={setPassword}
+              value={password}
+              textContentType="password"
+              secureTextEntry={true}
+            />
+          </ThemedView>
 
-      <TouchableOpacity
-        style={styles.registerButton}
-        onPress={handleOnRegister}
-      >
-        <ThemedText style={styles.loginText} type="defaultSemiBold">
-          Register
-        </ThemedText>
-      </TouchableOpacity>
-    </ThemedView>
+          <TouchableOpacity
+            style={styles.registerButton}
+            onPress={handleOnRegister}
+          >
+            <ThemedText style={styles.loginText} type="defaultSemiBold">
+              Register
+            </ThemedText>
+          </TouchableOpacity>
+        </ThemedView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
