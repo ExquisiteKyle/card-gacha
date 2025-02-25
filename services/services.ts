@@ -33,6 +33,16 @@ export const handleLogin = (content: Login) => {
     .catch((err) => console.error(err));
 };
 
+export const handleLogOut = () =>
+  fetch(`${apiUrl}/user/logout`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then(() => true)
+    .catch((err) => console.error(err));
+
 // Cards
 
 export const handleAddCard = (content: Object) =>
@@ -43,6 +53,40 @@ export const handleAddCard = (content: Object) =>
       "Content-Type": "application/json",
     },
     body: JSON.stringify(content),
+  })
+    .then((result) => result)
+    .catch((err) => console.error(err));
+
+export const handleGetAllCards = () =>
+  fetch(`${apiUrl}/card/get-all-cards`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((result) => result)
+    .catch((err) => console.error(err));
+
+export const handleDeleteCards = (deleteList: number[]) =>
+  fetch(`${apiUrl}/card/delete-cards`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ids: deleteList }),
+  })
+    .then((result) => result)
+    .catch((err) => console.error(err));
+
+export const handleAddTestData = () =>
+  fetch(`${apiUrl}/card/add-test-data`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   })
     .then((result) => result)
     .catch((err) => console.error(err));

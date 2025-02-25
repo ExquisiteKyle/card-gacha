@@ -8,12 +8,12 @@ import { IndexProp } from "@/types/types";
 import { responseHandler } from "@/util/helper";
 
 const Login = ({ navigation }: IndexProp) => {
-  const [email, setEmail] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleOnLogin = () =>
-    handleLogin({ email, password })?.then((result) =>
-      responseHandler(result, () => navigation.navigate("Home"))
+    handleLogin({ username, password })?.then(
+      (result) => responseHandler(result) && navigation.navigate("Home")
     );
 
   return (
@@ -24,9 +24,9 @@ const Login = ({ navigation }: IndexProp) => {
             <ThemedText type="default">Username</ThemedText>
             <TextInput
               style={styles.input}
-              onChangeText={setEmail}
-              value={email}
-              placeholder="JohnSmith@gmail.com"
+              onChangeText={setUsername}
+              value={username}
+              placeholder="JohnSmith"
             />
           </ThemedView>
           <ThemedView style={styles.inputRow}>

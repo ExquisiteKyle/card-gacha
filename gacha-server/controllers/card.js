@@ -62,3 +62,42 @@ exports.deleteCard = (req, res, next) => {
     .then((result) => res.status(200).send())
     .catch((err) => console.error(err));
 };
+
+exports.deleteCards = (req, res, next) => {
+  const ids = req.body.ids;
+  Card.destroy({ where: { id: ids } })
+    .then((result) => res.status(200).send())
+    .catch((err) => console.error(err));
+};
+
+exports.addTestData = (req, res, next) => {
+  const testData = [
+    {
+      name: "Raichu",
+      description: "Rat Pokemon",
+      rarity: 2,
+      attack: 400,
+      defense: 100,
+      image_url: "https://i.imgur.com/HYRmyOs.png",
+    },
+    {
+      name: "Mew",
+      description: "Mythical Pokemon",
+      rarity: 5,
+      attack: 500,
+      defense: 1000,
+      image_url: "https://i.imgur.com/mT0JnTo.png",
+    },
+    {
+      name: "Rayquaza",
+      description: "Legendary Pokemon",
+      rarity: 4,
+      attack: 800,
+      defense: 500,
+      image_url: "https://i.imgur.com/1oWFebb.png",
+    },
+  ];
+  Card.bulkCreate(testData)
+    .then(() => res.status(200).send())
+    .catch((err) => handleError(res, 500, err));
+};

@@ -22,12 +22,10 @@ const customAlertPolyfill = (
 export const customAlert =
   Platform.OS === "web" ? customAlertPolyfill : Alert.alert;
 
-export const responseHandler = (
-  result: void | Response,
-  positiveCallback: () => void
-) => {
+export const responseHandler = (result: void | Response) => {
   if (!result) return;
-  if (result.ok) return positiveCallback();
+  if (result.ok) return result;
+  // Handles generic error response.
   result
     .json()
     .then((response) =>

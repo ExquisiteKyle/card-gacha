@@ -3,10 +3,12 @@ import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
 import { useState } from "react";
 import AddCard from "./AddCard";
+import ManageCards from "./ManageCards";
 
 enum AdminPage {
   ADD = "addCard",
   VIEW = "viewAllCards",
+  MANAGE = "manageCards",
 }
 
 const getButton = (
@@ -32,11 +34,12 @@ const Admin = () => {
   return (
     <ThemedView style={styles.wrapper}>
       <ThemedView style={styles.sideNav}>
-        {getButton("View all cards", setPage, AdminPage.VIEW, page)}
+        {getButton("Manage cards", setPage, AdminPage.MANAGE, page)}
         {getButton("Add card", setPage, AdminPage.ADD, page)}
       </ThemedView>
       <ThemedView style={styles.container}>
         {page === AdminPage.ADD && <AddCard />}
+        {page === AdminPage.MANAGE && <ManageCards />}
       </ThemedView>
     </ThemedView>
   );

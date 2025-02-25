@@ -1,12 +1,12 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type Login = {
-  email: string;
+  username: string;
   password: string;
 };
 
 export type Register = {
-  username: string;
+  email: string;
 } & Login;
 
 export type RootStackParamList = {
@@ -23,6 +23,7 @@ export enum PAGE {
 }
 
 export type CardProps = {
+  id?: number;
   name: string;
   description: string;
   rarity: number;
@@ -30,3 +31,8 @@ export type CardProps = {
   defense: number;
   image_url: string;
 };
+
+export enum SET_ACTION {
+  ADD = "add",
+  DELETE = "delete",
+}

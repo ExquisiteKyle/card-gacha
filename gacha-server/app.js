@@ -7,7 +7,6 @@ const sequelize = require("./utils/database");
 
 const userRoutes = require("./routes/user");
 const cardRoutes = require("./routes/card");
-const Card = require("./models/card");
 
 // Initializing database.
 sequelize
@@ -21,6 +20,8 @@ const app = express();
 app.use(
   session({
     secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
     cookie: {
       httpOnly: true,
       sameSite: "strict",

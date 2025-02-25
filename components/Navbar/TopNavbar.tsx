@@ -1,14 +1,17 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
-import { PAGE } from "@/types/types";
+import { HomeProp, PAGE } from "@/types/types";
+import { handleLogOut } from "@/services/services";
 
-type NavBarProp = {
+type MiniNavProp = {
   pageCallback: (page: PAGE) => void;
   page: PAGE;
 };
 
-const Navbar = ({ pageCallback, page }: NavBarProp) => {
+type NavBarProp = MiniNavProp & HomeProp;
+
+const TopNavbar = ({ pageCallback, page, navigation, route }: NavBarProp) => {
   const getButton = (destinationPage: PAGE, text: string) => {
     const selectedCssObject = page === destinationPage && styles.selected;
     return (
@@ -25,10 +28,22 @@ const Navbar = ({ pageCallback, page }: NavBarProp) => {
       </TouchableOpacity>
     );
   };
+
+  const handleOnLogOut = () =>
+    handleLogOut().then(() => navigation.navigate("Index"));
+
   return (
     <ThemedView style={styles.wrapper}>
       {getButton(PAGE.HOME, "Home")}
       {getButton(PAGE.ADMIN, "Admin")}
+      <TouchableOpacity
+        style={[styles.button, styles.logOutBtn]}
+        onPress={handleOnLogOut}
+      >
+        <ThemedText style={styles.logOutBtnText} type="defaultSemiBold">
+          Log out
+        </ThemedText>
+      </TouchableOpacity>
     </ThemedView>
   );
 };
@@ -52,6 +67,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#841584",
     color: "#FFFFFF",
   },
+  logOutBtn: {
+    backgroundColor: "#880808",
+  },
+  logOutBtnText: {
+    transform: "skew(-15deg)",
+    color: "#FFFFFF",
+  },
 });
 
-export default Navbar;
+export default TopNavbar;

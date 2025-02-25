@@ -17,10 +17,10 @@ const Register = ({ navigation }: IndexProp) => {
   const [password, setPassword] = useState<string>("");
 
   const handleOnRegister = () =>
-    handleRegister({ email, username, password })?.then((result) =>
-      responseHandler(result, () =>
+    handleRegister({ email, username, password })?.then(
+      (response) =>
+        responseHandler(response) &&
         customAlert("Success", "Registration completed.", genericAlertActions)
-      )
     );
 
   return (

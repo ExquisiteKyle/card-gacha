@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import Navbar from "@/components/Navbar/Navbar";
+import TopNavbar from "@/components/Navbar/TopNavbar";
 import Gachapon from "@/components/Home/Gachapon";
 import Admin from "@/components/Admin/Admin";
-import { PAGE } from "@/types/types";
+import { HomeProp, PAGE } from "@/types/types";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation, route }: HomeProp) => {
   const [page, setPage] = useState<PAGE>(PAGE.HOME);
   const isGachaponPage = page === PAGE.HOME;
   return (
     <ThemedView style={styles.wrapper}>
       <ThemedView style={styles.navBar}>
-        <Navbar page={page} pageCallback={setPage} />
+        <TopNavbar
+          page={page}
+          navigation={navigation}
+          route={route}
+          pageCallback={setPage}
+        />
       </ThemedView>
       <ThemedView style={styles.container}>
         {isGachaponPage && <Gachapon />}

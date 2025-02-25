@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
-import { handleAddCard } from "@/services/services";
+import { handleAddCard, handleAddTestData } from "@/services/services";
 import {
   customAlert,
   genericAlertActions,
@@ -12,21 +12,27 @@ import {
 import { CardProps } from "@/types/types";
 
 const AddCard = () => {
-  const [cardData, setCardData] = useState<CardProps>({
+  const defaultState = {
     name: "",
     description: "",
     rarity: 0,
     attack: 0,
     defense: 0,
     image_url: "",
-  });
+  };
+  const [cardData, setCardData] = useState<CardProps>(defaultState);
+
+  const resetStateOnSuccess = () => {
+    customAlert("Success", "Card has been added", genericAlertActions);
+    setCardData(defaultState);
+  };
 
   const handleOnAddCard = () =>
-    handleAddCard(cardData).then((response) =>
-      responseHandler(response, () =>
-        customAlert("Success", "Card has been added", genericAlertActions)
-      )
+    handleAddCard(cardData).then(
+      (response) => responseHandler(response) && resetStateOnSuccess()
     );
+
+  const handleOnAddTestData = () => handleAddTestData();
 
   const getTextField = (key: keyof CardProps, isNumeric: boolean = false) => (
     <ThemedView style={styles.inputRow}>
@@ -40,7 +46,7 @@ const AddCard = () => {
           })
         }
         value={
-          !isNumeric ? (cardData[key] as string) : cardData[key].toString()
+          !isNumeric ? (cardData[key] as string) : cardData[key]?.toString()
         }
         keyboardType={!isNumeric ? "default" : "numeric"}
       />
@@ -48,26 +54,26 @@ const AddCard = () => {
   );
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView>
-        <ThemedView style={styles.wrapper}>
-          <ThemedView>
-            <ThemedText type="title">Add Card</ThemedText>
-            <ThemedView style={styles.form}>
-              {getTextField("name")}
-              {getTextField("description")}
-              {getTextField("rarity", true)}
-              {getTextField("attack", true)}
-              {getTextField("defense", true)}
-              {getTextField("image_url")}
-              <TouchableOpacity onPress={handleOnAddCard}>
-                <ThemedText style={styles.submit}>Submit</ThemedText>
-              </TouchableOpacity>
-            </ThemedView>
-          </ThemedView>
+    <ThemedView style={styles.wrapper}>
+      <ThemedView>
+        <ThemedText type="title">Add Card</ThemedText>
+        <ThemedView style={styles.form}>
+          {getTextField("name")}
+          {getTextField("description")}
+          {getTextField("rarity", true)}
+          {getTextField("attack", true)}
+          {getTextField("defense", true)}
+          {getTextField("image_url")}
+          <TouchableOpacity onPress={handleOnAddCard}>
+            <ThemedText style={styles.submit}>Submit</ThemedText>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handleOnAddTestData}>
+            <ThemedText style={styles.submit}>Add Test Data</ThemedText>
+          </TouchableOpacity>
         </ThemedView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      </ThemedView>
+    </ThemedView>
   );
 };
 
