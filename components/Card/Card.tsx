@@ -72,11 +72,6 @@ const styles = StyleSheet.create({
     borderColor: "#FFFF00",
     padding: 10,
     margin: 10,
-    shadowColor: "#FFFF00",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5, // For Android shadow
   },
   pokemonImage: {
     width: 150,

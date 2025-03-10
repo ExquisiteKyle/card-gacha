@@ -90,3 +90,27 @@ export const handleAddTestData = () =>
   })
     .then((result) => result)
     .catch((err) => console.error(err));
+
+// Gachapon Draws
+
+export const handleGachaponDrawSingle = () =>
+  fetch(`${apiUrl}/gachapon/single`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((result) => result)
+    .catch((err) => console.error(err));
+
+export const handleGachaponDrawMulti = () =>
+  fetch(`${apiUrl}/gachapon/multi`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((result) => result)
+    .catch((err) => console.error(err));

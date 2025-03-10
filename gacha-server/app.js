@@ -7,6 +7,7 @@ const sequelize = require("./utils/database");
 
 const userRoutes = require("./routes/user");
 const cardRoutes = require("./routes/card");
+const gachaponRoutes = require("./routes/gachapon");
 
 // Initializing database.
 sequelize
@@ -41,6 +42,7 @@ app.use((req, res, next) => {
 
 app.use("/user", userRoutes);
 app.use("/card", cardRoutes);
+app.use("/gachapon", gachaponRoutes);
 
 app.listen(8080, () => {
   console.log("Server running!");
